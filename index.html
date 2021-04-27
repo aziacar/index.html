@@ -1,0 +1,246 @@
+<html> 
+    <head>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+        <script src="https://unpkg.com/p5.collide2d"></script>
+        <!--<script defer src="https://unpkg.com/p5"></script>
+        <script defer src="https://unpkg.com/p5.collide2d"></script>-->
+    </head>
+    <body>
+        <script>
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+            var anger = 0 //if anger goes over 1, something will happen
+
+            //var x = w/2 dont use this lol
+            //var y = h/2
+
+            var player;
+            //this is the contructor for the MAIN villain,, will be smaller enemies
+            var antag;
+
+            var bystander1;
+            var bystander2;
+            var bystander3;
+            var bystander4;
+            var bystander5;
+
+            var hit = false //by default this should be false
+
+            var textbox;
+
+            function setup(){
+                createCanvas(w,h);
+                //setting the contructors above as objects
+                player = new player();
+                antag = new antag();
+                bystander1 = new bystander1();
+                bystander2 = new bystander2();
+                bystander3 = new bystander3();
+                bystander4 = new bystander4();
+                bystander5 = new bystander5();
+                textbox = new textbox();
+
+            }
+
+            function draw(){
+                clear();
+                antag.show();
+                antag.update();
+                bystander1.show();
+                bystander1.update();
+                bystander2.show();
+                bystander2.update();
+                bystander3.show();
+                bystander3.update();
+                bystander4.show();
+                bystander4.update();
+                bystander5.show();
+                bystander5.update();
+                player.show();
+                player.update();
+                if (anger===30) { //the 30 gives it a slight delay so you can hopefully read it
+                    location.href = "run.html";
+                }
+
+                //THE ANTAG
+                hit = collideRectRect(50,50,50,50,
+                player.x,player.y,50,50,);
+                if (hit === true) {
+                    textSize(24);
+                    text('d  i  e',100,640);
+                    textbox.show();
+                    textbox.update();
+                    //window.alert("whyd you fucking touch me")
+                    //function touchEnded(){
+                    //    location.href = "run.html";
+                    //}
+                    anger += 1
+                }
+                //console.log(hit);
+
+                //bystander1
+                hit = collideRectRect(300,500,50,50,
+                player.x,player.y,50,50,);
+                if (hit === true) {
+                    textSize(24);
+                    text('heya whacha up to',100,640);
+                    textbox.show();
+                    textbox.update();
+                    //text('haha, whatre you up to?',700,h*.9);
+                }
+
+                //bystander2
+                hit = collideRectRect(200,100,50,50,
+                player.x,player.y,50,50,);
+                if (hit === true) {
+                    textSize(24);
+                    text('that red guy is kinda scary',100,640);
+                    textbox.show();
+                    textbox.update();
+                }
+
+                //bystander3
+                hit = collideRectRect(80,340,50,50,
+                player.x,player.y,50,50,);
+                if (hit === true) {
+                    textSize(24);
+                    text('im tired',100,640);
+                    textbox.show();
+                    textbox.update();
+                }
+
+                //bystander4
+                hit = collideRectRect(1300,325,50,50,
+                player.x,player.y,50,50,);
+                if (hit === true) {
+                    textSize(24);
+                    text('how ya doin today',100,640);
+                    textbox.show();
+                    textbox.update();
+                }
+
+                //bystander5
+                hit = collideRectRect(1200,175,50,50,
+                player.x,player.y,50,50,);
+                if (hit === true) {
+                    textSize(24);
+                    text('ohhhh man heyo',100,640);
+                    textbox.show();
+                    textbox.update();
+                }
+        }
+
+                function player(){
+                    this.x = w/2
+                    this.y = h/2
+
+                    this.show = function() {
+                        fill(color('black'));
+                        rectMode(CENTER);
+                        rect(this.x,this.y,50,50);
+                    }
+
+                    this.update = function(){
+                    
+                    if((keyIsDown(87) && this.y>25) || (keyIsDown(38) && this.y>25)){
+                    this.y = this.y -=10;
+                    }
+                    if((keyIsDown(83) && this.y<h-25) || (keyIsDown(40) && this.y<h-25)){
+                    this.y = this.y +=10;
+                    }
+                    if((keyIsDown(65) && this.x>25) || (keyIsDown(37) && this.x>25)) {
+                    this.x = this.x -=10;
+                    }
+                    if((keyIsDown(68) && this.x<w-25) || (keyIsDown(39) && this.x<w-25)) {
+                    this.x = this.x +=10;
+                    }    
+                    }
+                }
+
+                function antag(){
+
+                    this.show = function() {
+                    fill(color('red'));
+                    rect(50,50,50,50);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+
+                function bystander1(){
+                    
+                    this.show = function(){
+                        fill(color('gray'));
+                        rect(300,500,50,50);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+
+                function bystander2(){
+                    
+                    this.show = function(){
+                        fill(color('gray'));
+                        rect(200,100,50,50);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+
+                function bystander3(){
+                    
+                    this.show = function(){
+                        fill(color('gray'));
+                        rect(80,340,50,50);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+
+                function bystander4(){
+                    
+                    this.show = function(){
+                        fill(color('gray'));
+                        rect(1300,325,50,50);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+
+                function bystander5(){
+                    
+                    this.show = function(){
+                        fill(color('gray'));
+                        rect(1200,175,50,50);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+                function textbox(){
+
+                    this.show = function(){
+                        fill(color('#ffffff00'));
+                        rect(700,h*.9,w*.9,100);
+                    }
+
+                    this.update = function(){
+
+                    }
+                }
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js"></script>
+        <script src="https://unpkg.com/p5.collide2d"></script>
+    </head>
+    <body>
+        <script>
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+
+            //create constructors for playerDONE, antag, and enemies
+
+            var player;
+            var enemy;
+            
+            var hit = false
+
+            function setup(){
+                createCanvas(w,h);
+                player = new player();
+                enemy = new enemy();
+            }
+
+            function draw(){
+                clear();
+                player.show();
+                player.update();
+                enemy.show();
+                enemy.update();
+                hit = collideRectRect(player.x, player.y,50,50,enemy.x,enemy.y,enemy.width,enemy.height);
+                if (hit === true) {
+                    window.alert("you lose :)")
+                }
+                text('i havent figured out how to make the guy loop so as of now thats ujst where it ends',50,50);
+            }
+
+            function enemy(){
+                this.width = 50;
+                this.height = 50;
+                this.x = w;
+                this.y = random(0,h - this.height);
+                this.show = function(){
+                    fill(color('red'));
+                    rect(this.x, this.y, this.width, this.height);
+                }
+                
+                this.update = function(){
+                    if (this.x !=0) {
+                        this.x -= 15; //speed of the barrier, its going left so negative
+                    }
+                }
+            }
+            function player(){
+                this.x = w/2;
+                this.y = h/2;
+
+                this.show = function() {
+                    fill(color('black'));
+                    rect(this.x,this.y,50,50);
+                }
+
+                this.update = function(){
+
+                if((keyIsDown(87) && this.y>25) || (keyIsDown(38) && this.y>25)){
+                    this.y = this.y -=10;
+                }
+                if((keyIsDown(83) && this.y<h-25) || (keyIsDown(40) && this.y<h-25)){
+                    this.y = this.y +=10;
+                }
+                if((keyIsDown(65) && this.x>25) || (keyIsDown(37) && this.x>25)) {
+                    this.x = this.x -=10;
+                }
+                if((keyIsDown(68) && this.x<w-25) || (keyIsDown(39) && this.x<w-25)) {
+                    this.x = this.x +=10;
+                }
+                }
+            }
+        </script>
+    </body>
+</html>
